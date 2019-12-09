@@ -1,0 +1,61 @@
+<div class="profile-page">
+    <div class="user-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-10 offset-md-1">
+                    <img [src]="userProfile?.image" class="user-img" />
+                    <h4>{{ userProfile?.username }}</h4>
+                    <p>{{ userProfile?.bio }}</p>
+                    <button class="btn btn-sm btn-outline-secondary action-btn" [routerLink]="['/', 'settings']"
+                        *ngIf="userProfile?.username === currentUserName">
+                        <i class="ion-gear-a"></i>
+                        &nbsp;Edit Profile Settings
+                    </button>
+                    <app-follow-button [userClicked]="userNameClicked" [following]="following"
+                    class="pull-xs-right"
+                        (toggleFollow)="onFollow($event)" *ngIf="(userProfile?.username !== currentUserName)">
+                    </app-follow-button>
+
+                    <!-- <button class="btn btn-sm btn-outline-secondary action-btn"
+                            *ngIf="(userProfile?.username !== currentUserName) && !following" (click)="followUser()">
+                            <i class="ion-plus-round"></i>
+                            &nbsp; Follow {{ userProfile?.username }}
+                        </button> -->
+                    <!-- <button class="btn btn-sm btn-outline-secondary action-btn"
+                            *ngIf="(userProfile?.username !== currentUserName) && following" (click)="unfollowUser()">
+                            <i class="ion-plus-round"></i>
+                            &nbsp; Unfollow {{ userProfile?.username }}
+                        </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                <div class="articles-toggle">
+                    <ul class="nav nav-pills outline-active">
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link " (click)="showMyArticles()" [class.active]="checkArticles == 1">My
+                                Articles</a>
+                        </li>
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link active" (click)="showFavoritedArticles()"
+                                [class.active]="checkArticles == 2">Favorited Articles</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- my articles -->
+                <div *ngIf="checkArticles == 1">
+                    <app-lists-articles [checkArticles]="checkArticles" [userNameClicked]="userNameClicked">
+                    </app-lists-articles>
+                </div>
+                <!-- favorited articles -->
+                <div *ngIf="checkArticles == 2">
+                    <app-lists-articles [checkArticles]="checkArticles" [userNameClicked]="userNameClicked">
+                    </app-lists-articles>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
